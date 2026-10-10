@@ -1,0 +1,43 @@
+#include "matrix.hpp"
+
+namespace lana {
+
+// constructors
+template <typename T>
+matrix<T>::matrix(const std::size_t r, const std::size_t c)
+    : rows_(r), columns_(c), data_(r * c, T{}) {}
+
+template <typename T>
+matrix<T> matrix<T>::zeros(const std::size_t r, const std::size_t c) {
+    return matrix<T>(r, c, T{0})
+}
+
+template <typename T>
+matrix<T> matrix<T>::ones(const std::size_t r, const std::size_t c) {
+    return matrix<T>(r, c, T{1})
+}
+
+template <typename T>
+matrix<T> matrix<T>::identity(const std::size_t n) {
+    matrix<T> ret = zeros(n, n);
+    for (std::size_t i = 0; i < n; ++i) {
+        ret(i, i) = T{1};
+    }
+    return ret;
+}
+
+// operator overloads
+template <typename T>
+T& matrix<T>::operator()(const std::size_t r, const std::size_t c) {
+    if (r >= rows_ || c >= columns_)
+        throw std::out_of_range("lana::matrix::operator(): index out of range");
+    return data_[r * row_stride() + c * columns_stride()];
+}
+
+template <typename T>
+const T& matrix<T>::operator()(const std::size_t r, const std::size_t c) const {
+    if (r >= rows_ || c >= columns_)
+        throw std::out_of_range("lana::matrix::operator(): index out of range");
+    return data_[r * row_stride() + c * columns_stride()];
+}
+}  // namespace lana
