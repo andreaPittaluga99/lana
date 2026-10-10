@@ -12,6 +12,7 @@ class matrix {
    public:
     // constructors
     matrix(std::size_t r, std::size_t c);
+    matrix(const matrix& mat) = default;
     static matrix zeros(const std::size_t r, const std::size_t c);
     static matrix ones(const std::size_t r, const std::size_t c);
     static matrix identity(const std::size_t n);
@@ -23,6 +24,9 @@ class matrix {
     // operator overload
     T& operator()(const std::size_t r, const std::size_t c);
     const T& operator()(const std::size_t r, const std::size_t c) const;
+
+    // op
+    matrix transpose() const;
 
    private:
     std::size_t rows_;
