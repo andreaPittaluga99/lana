@@ -66,3 +66,13 @@ TEST(MatrixTranspose, RectangularMatrix) {
     EXPECT_EQ(m(0, 1), 2);
     EXPECT_EQ(m(1, 0), 4);
 }
+
+TEST(IsUpperTriangular, Affermative) {
+    lana::matrix<int> m({{2, 10, -1}, {0, 1, 0}, {0, 0, 3}});
+    EXPECT_EQ(m.is_upper_triangular(), true);
+}
+
+TEST(IsUpperTriangular, Negative) {
+    lana::matrix<int> m({{0, 0, -1}, {1, 1, 0}, {0, 0, 0}});
+    EXPECT_EQ(m.is_upper_triangular(), false);
+}
