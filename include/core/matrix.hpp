@@ -30,6 +30,9 @@ class matrix {
     // op
     matrix transpose() const;
 
+    // checks
+    bool is_upper_triangular() const noexcept;
+
    private:
     std::size_t rows_;
     std::size_t columns_;
