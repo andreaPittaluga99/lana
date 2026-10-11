@@ -2,6 +2,7 @@
 #define MATRIX_HPP
 
 #include <cstddef>
+#include <initializer_list>
 #include <stdexcept>
 #include <vector>
 
@@ -13,6 +14,7 @@ class matrix {
     // constructors
     matrix(std::size_t r, std::size_t c);
     matrix(const matrix& mat) = default;
+    matrix(std::initializer_list<std::initializer_list<T>> list);
     static matrix zeros(const std::size_t r, const std::size_t c);
     static matrix ones(const std::size_t r, const std::size_t c);
     static matrix identity(const std::size_t n);
