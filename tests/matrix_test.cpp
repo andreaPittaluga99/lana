@@ -76,3 +76,20 @@ TEST(IsUpperTriangular, Negative) {
     lana::matrix<int> m({{0, 0, -1}, {1, 1, 0}, {0, 0, 0}});
     EXPECT_FALSE(m.is_upper_triangular());
 }
+
+TEST(IsStrictlyUpperTriangular, Affermative) {
+    lana::matrix<int> m(
+        {{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}, {0, 0, 0, 0}});
+    EXPECT_TRUE(m.is_upper_triangular());
+}
+
+TEST(IsStrictlyUpperTriangular, Negative) {
+    lana::matrix<int> m(
+        {{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}, {1, 0, 0, 0}});
+    EXPECT_FALSE(m.is_upper_triangular());
+}
+
+TEST(IsStrictlyUpperTriangular, Negative_not_square_matrix) {
+    lana::matrix<int> m({{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}});
+    EXPECT_FALSE(m.is_upper_triangular());
+}
