@@ -89,4 +89,19 @@ bool matrix<T>::is_upper_triangular() const noexcept {
     }
     return true;
 }
+
+template <typename T>
+bool matrix<T>::is_strictly_upper_triangular() const noexcept {
+    // m is strictly upper triangular if m(i, j) == 0 for all i >= j
+    if (this->rows_ != this->columns_) return false;
+
+    for (std::size_t i = 0; i < this->rows_; ++i) {
+        for (std::size_t j = 0; j <= i; ++j) {
+            if ((*this)(i, j) != 0) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
 }  // namespace lana
