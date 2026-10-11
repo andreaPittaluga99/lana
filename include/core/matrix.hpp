@@ -34,6 +34,7 @@ class matrix {
     bool is_upper_triangular() const noexcept;
     bool is_strictly_upper_triangular() const noexcept;
     bool is_lower_triangular() const noexcept;
+    bool is_strictly_lower_triangular() const noexcept;
 
    private:
     std::size_t rows_;
