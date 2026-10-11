@@ -139,3 +139,16 @@ TEST(IsStrictlyLowerTriangular, NonSquareMatrix) {
     lana::matrix<int> m{{0, 0, 0}, {1, 0, 0}};
     EXPECT_FALSE(m.is_strictly_lower_triangular());
 }
+
+TEST(isDiagonal, Positive) {
+    lana::matrix<int> d{{2, 0, 0}, {0, 1, 0}, {0, 0, -3}};
+    EXPECT_TRUE(d.is_diagonal());
+    lana::matrix<int> u{{1}};
+    EXPECT_TRUE(u.is_diagonal());
+    lana::matrix<int> z{{0}};
+    EXPECT_TRUE(z.is_diagonal());
+}
+TEST(isDiagonal, Negative) {
+    lana::matrix<int> d{{2, 0, 1}, {0, 1, 0}, {0, 0, -3}};
+    EXPECT_FALSE(d.is_diagonal());
+}
