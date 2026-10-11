@@ -67,9 +67,12 @@ TEST(MatrixTranspose, RectangularMatrix) {
     EXPECT_EQ(m(1, 0), 4);
 }
 
-TEST(IsUpperTriangular, Affermative) {
+TEST(IsUpperTriangular, Positive) {
     lana::matrix<int> m({{2, 10, -1}, {0, 1, 0}, {0, 0, 3}});
     EXPECT_TRUE(m.is_upper_triangular());
+
+    lana::matrix<int> u({{1}});
+    EXPECT_TRUE(u.is_upper_triangular());
 }
 
 TEST(IsUpperTriangular, Negative) {
@@ -77,19 +80,40 @@ TEST(IsUpperTriangular, Negative) {
     EXPECT_FALSE(m.is_upper_triangular());
 }
 
-TEST(IsStrictlyUpperTriangular, Affermative) {
+TEST(IsStrictlyUpperTriangular, Positive) {
     lana::matrix<int> m(
         {{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}, {0, 0, 0, 0}});
-    EXPECT_TRUE(m.is_upper_triangular());
+    EXPECT_TRUE(m.is_strictly_upper_triangular());
+
+    lana::matrix<int> u({{0}});
+    EXPECT_TRUE(u.is_strictly_upper_triangular());
 }
 
 TEST(IsStrictlyUpperTriangular, Negative) {
     lana::matrix<int> m(
         {{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}, {1, 0, 0, 0}});
-    EXPECT_FALSE(m.is_upper_triangular());
+    EXPECT_FALSE(m.is_strictly_upper_triangular());
+
+    lana::matrix<int> u({{1}});
+    EXPECT_FALSE(u.is_strictly_upper_triangular());
 }
 
-TEST(IsStrictlyUpperTriangular, Negative_not_square_matrix) {
+TEST(IsStrictlyUpperTriangular, NonSquareMatrix) {
     lana::matrix<int> m({{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}});
-    EXPECT_FALSE(m.is_upper_triangular());
+    EXPECT_FALSE(m.is_strictly_upper_triangular());
+}
+
+TEST(IsLowerTriangular, Positive) {
+    lana::matrix<int> m({{1, 0, 0}, {1, 1, 0}, {1, 1, 1}});
+    EXPECT_TRUE(m.is_lower_triangular());
+}
+
+TEST(IsLowerTriangular, Negative) {
+    lana::matrix<int> m({{1, 0, 1}, {1, 1, 1}, {1, 1, 1}});
+    EXPECT_FALSE(m.is_lower_triangular());
+}
+
+TEST(IsLowerTriangular, NonSquareMatrix) {
+    lana::matrix<int> m({{1, 0, 1}, {1, 1, 1}});
+    EXPECT_FALSE(m.is_lower_triangular());
 }
