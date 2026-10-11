@@ -148,7 +148,24 @@ TEST(isDiagonal, Positive) {
     lana::matrix<int> z{{0}};
     EXPECT_TRUE(z.is_diagonal());
 }
+
 TEST(isDiagonal, Negative) {
     lana::matrix<int> d{{2, 0, 1}, {0, 1, 0}, {0, 0, -3}};
     EXPECT_FALSE(d.is_diagonal());
+}
+
+TEST(IsSymmetric, Positive) {
+    lana::matrix<int> id = lana::matrix<int>::identity(5);
+    EXPECT_TRUE(id.is_symmetric());
+
+    lana::matrix<int> m{{3, 2, 1}, {2, 4, 0}, {1, 0, 5}};
+    EXPECT_TRUE(m.is_symmetric());
+
+    lana::matrix<int> u{{1}};
+    EXPECT_TRUE(u.is_symmetric());
+}
+
+TEST(IsSymmetric, Negative) {
+    lana::matrix<int> m{{3, 2, 1}, {1, 4, 0}, {1, 7, 1}};
+    EXPECT_FALSE(m.is_symmetric());
 }
