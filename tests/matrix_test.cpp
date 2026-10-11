@@ -68,52 +68,74 @@ TEST(MatrixTranspose, RectangularMatrix) {
 }
 
 TEST(IsUpperTriangular, Positive) {
-    lana::matrix<int> m({{2, 10, -1}, {0, 1, 0}, {0, 0, 3}});
+    lana::matrix<int> m{{2, 10, -1}, {0, 1, 0}, {0, 0, 3}};
     EXPECT_TRUE(m.is_upper_triangular());
 
-    lana::matrix<int> u({{1}});
+    lana::matrix<int> u{{1}};
     EXPECT_TRUE(u.is_upper_triangular());
 }
 
 TEST(IsUpperTriangular, Negative) {
-    lana::matrix<int> m({{0, 0, -1}, {1, 1, 0}, {0, 0, 0}});
+    lana::matrix<int> m{{0, 0, -1}, {1, 1, 0}, {0, 0, 0}};
     EXPECT_FALSE(m.is_upper_triangular());
 }
 
 TEST(IsStrictlyUpperTriangular, Positive) {
-    lana::matrix<int> m(
-        {{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}, {0, 0, 0, 0}});
+    lana::matrix<int> m{{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}, {0, 0, 0, 0}};
     EXPECT_TRUE(m.is_strictly_upper_triangular());
 
-    lana::matrix<int> u({{0}});
+    lana::matrix<int> u{{0}};
     EXPECT_TRUE(u.is_strictly_upper_triangular());
 }
 
 TEST(IsStrictlyUpperTriangular, Negative) {
-    lana::matrix<int> m(
-        {{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}, {1, 0, 0, 0}});
+    lana::matrix<int> m{{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}, {1, 0, 0, 0}};
     EXPECT_FALSE(m.is_strictly_upper_triangular());
 
-    lana::matrix<int> u({{1}});
+    lana::matrix<int> u{{1}};
     EXPECT_FALSE(u.is_strictly_upper_triangular());
 }
 
 TEST(IsStrictlyUpperTriangular, NonSquareMatrix) {
-    lana::matrix<int> m({{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}});
+    lana::matrix<int> m{{0, 1, 2, 3}, {0, 0, 1, 2}, {0, 0, 0, 1}};
     EXPECT_FALSE(m.is_strictly_upper_triangular());
 }
 
 TEST(IsLowerTriangular, Positive) {
-    lana::matrix<int> m({{1, 0, 0}, {1, 1, 0}, {1, 1, 1}});
+    lana::matrix<int> m{{1, 0, 0}, {1, 1, 0}, {1, 1, 1}};
     EXPECT_TRUE(m.is_lower_triangular());
 }
 
 TEST(IsLowerTriangular, Negative) {
-    lana::matrix<int> m({{1, 0, 1}, {1, 1, 1}, {1, 1, 1}});
+    lana::matrix<int> m{{1, 0, 1}, {1, 1, 1}, {1, 1, 1}};
     EXPECT_FALSE(m.is_lower_triangular());
 }
 
 TEST(IsLowerTriangular, NonSquareMatrix) {
-    lana::matrix<int> m({{1, 0, 1}, {1, 1, 1}});
+    lana::matrix<int> m{{1, 0, 1}, {1, 1, 1}};
     EXPECT_FALSE(m.is_lower_triangular());
+}
+
+TEST(IsStrictlyLowerTriangular, Positive) {
+    lana::matrix<int> m{{0, 0, 0, 0}, {1, 0, 0, 0}, {2, 3, 0, 0}, {4, 5, 6, 0}};
+    EXPECT_TRUE(m.is_strictly_lower_triangular());
+
+    lana::matrix<int> u{{0}};
+    EXPECT_TRUE(u.is_strictly_lower_triangular());
+}
+
+TEST(IsStrictlyLowerTriangular, Negative) {
+    lana::matrix<int> m{{0, 1, 0}, {1, 0, 0}, {2, 3, 0}};
+    EXPECT_FALSE(m.is_strictly_lower_triangular());
+
+    lana::matrix<int> u{{0, 0, 0}, {1, 2, 0}, {2, 3, 0}};
+    EXPECT_FALSE(u.is_strictly_lower_triangular());
+
+    lana::matrix<int> w{{1}};
+    EXPECT_FALSE(w.is_strictly_lower_triangular());
+}
+
+TEST(IsStrictlyLowerTriangular, NonSquareMatrix) {
+    lana::matrix<int> m{{0, 0, 0}, {1, 0, 0}};
+    EXPECT_FALSE(m.is_strictly_lower_triangular());
 }
