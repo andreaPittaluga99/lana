@@ -6,6 +6,10 @@ matrix<T>::matrix(const std::size_t r, const std::size_t c)
     : rows_(r), columns_(c), data_(r * c, T{}) {}
 
 template <typename T>
+matrix<T>::matrix(const std::size_t r, const std::size_t c, const T& value)
+    : rows_(r), columns_(c), data_(r * c, value) {}
+
+template <typename T>
 matrix<T>::matrix(std::initializer_list<std::initializer_list<T>> list)
     : rows_(list.size()), columns_((rows_ > 0) ? list.begin()->size() : 0) {
     this->data_.reserve(this->rows_ * this->columns_);
@@ -150,4 +154,21 @@ bool matrix<T>::is_diagonal() const noexcept {
     }
     return true;
 }
+
+template <typename T>
+bool matrix<T>::is_symmetric() const noexcept {
+    // m is symmetric if m == m.transposed
+    //  so m is symmetric if m is a square matrix and m(i, j) == m(j, i)
+    if (this->rows_ != this->columns_) return false;
+
+    for (std::size_t i = 0; i < this->rows_; ++i) {
+        for (std::size_t j = 0; j < this->columns_; ++j) {
+            if ((*this)(i, j) != (*this)(j, i)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 }  // namespace lana

@@ -12,7 +12,8 @@ template <typename T>
 class matrix {
    public:
     // constructors
-    matrix(std::size_t r, std::size_t c);
+    matrix(const std::size_t r, const std::size_t c);
+    matrix(const std::size_t r, const std::size_t c, const T& value);
     matrix(const matrix& mat) = default;
     matrix(std::initializer_list<std::initializer_list<T>> list);
     static matrix zeros(const std::size_t r, const std::size_t c);
@@ -36,6 +37,7 @@ class matrix {
     bool is_lower_triangular() const noexcept;
     bool is_strictly_lower_triangular() const noexcept;
     bool is_diagonal() const noexcept;
+    bool is_symmetric() const noexcept;
 
    private:
     std::size_t rows_;
