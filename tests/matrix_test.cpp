@@ -240,3 +240,50 @@ TEST(MatrixAdditionAssignment, DifferentSizes) {
 
     EXPECT_THROW((a += b), std::invalid_argument);
 }
+
+TEST(MatrixSubtraction, SameSizeMatrices) {
+    lana::matrix<int> a{{7, 8, 9}, {6, 5, 4}};
+    lana::matrix<int> b{{1, 2, 3}, {4, 5, 6}};
+
+    auto difference = a - b;
+
+    EXPECT_EQ(difference.rows(), 2);
+    EXPECT_EQ(difference.columns(), 3);
+    EXPECT_EQ(difference(0, 0), 6);
+    EXPECT_EQ(difference(0, 1), 6);
+    EXPECT_EQ(difference(0, 2), 6);
+    EXPECT_EQ(difference(1, 0), 2);
+    EXPECT_EQ(difference(1, 1), 0);
+    EXPECT_EQ(difference(1, 2), -2);
+
+    EXPECT_EQ(a(0, 0), 7);
+    EXPECT_EQ(b(0, 0), 1);
+}
+
+TEST(MatrixSubtraction, DifferentSizes) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> b{{1, 2}, {3, 4}};
+
+    EXPECT_THROW((a - b), std::invalid_argument);
+}
+
+TEST(MatrixSubtractionAssignment, SameSizeMatrices) {
+    lana::matrix<int> a{{7, 8}, {9, 10}};
+    lana::matrix<int> b{{1, 2}, {3, 4}};
+
+    lana::matrix<int>& result = (a -= b);
+
+    EXPECT_EQ(a(0, 0), 6);
+    EXPECT_EQ(a(0, 1), 6);
+    EXPECT_EQ(a(1, 0), 6);
+    EXPECT_EQ(a(1, 1), 6);
+    EXPECT_EQ(&result, &a);
+    EXPECT_EQ(b(0, 0), 1);
+}
+
+TEST(MatrixSubtractionAssignment, DifferentSizes) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> b{{1, 2}, {3, 4}};
+
+    EXPECT_THROW((a -= b), std::invalid_argument);
+}

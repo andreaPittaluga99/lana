@@ -31,7 +31,7 @@ class matrix {
     matrix operator+(const matrix& other) const;
     matrix& operator+=(const matrix& other);
     matrix operator-(const matrix& other) const;
-    // matrix& operator-=(const matrix& other);
+    matrix& operator-=(const matrix& other);
 
     // op
     matrix transpose() const;
