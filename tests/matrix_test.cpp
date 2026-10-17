@@ -178,7 +178,6 @@ TEST(MatrixAddition, SameSizeMatrices) {
 
     EXPECT_EQ(sum.rows(), 2);
     EXPECT_EQ(sum.columns(), 3);
-
     EXPECT_EQ(sum(0, 0), 7);
     EXPECT_EQ(sum(0, 1), 7);
     EXPECT_EQ(sum(0, 2), 7);
@@ -212,32 +211,6 @@ TEST(MatrixAddition, ZeroMatrix) {
     EXPECT_EQ(sum(0, 1), 2);
     EXPECT_EQ(sum(1, 0), 3);
     EXPECT_EQ(sum(1, 1), 4);
-}
-
-TEST(MatrixAddition, DifferentSizes) {
-    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
-    lana::matrix<int> b{{1, 2}, {3, 4}};
-
-    EXPECT_THROW((a + b), std::invalid_argument);
-}
-
-TEST(MatrixAddition, SameSizeMatrices) {
-    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
-    lana::matrix<int> b{{6, 5, 4}, {3, 2, 1}};
-
-    auto sum = a + b;
-
-    EXPECT_EQ(sum.rows(), 2);
-    EXPECT_EQ(sum.columns(), 3);
-    EXPECT_EQ(sum(0, 0), 7);
-    EXPECT_EQ(sum(0, 1), 7);
-    EXPECT_EQ(sum(0, 2), 7);
-    EXPECT_EQ(sum(1, 0), 7);
-    EXPECT_EQ(sum(1, 1), 7);
-    EXPECT_EQ(sum(1, 2), 7);
-
-    EXPECT_EQ(a(0, 0), 1);
-    EXPECT_EQ(b(0, 0), 6);
 }
 
 TEST(MatrixAddition, DifferentSizes) {
