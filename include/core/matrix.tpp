@@ -79,6 +79,18 @@ matrix<T> matrix<T>::operator+(const matrix<T>& other) const {
     return ret;
 }
 
+template <typename T>
+matrix<T>& matrix<T>::operator+=(const matrix<T>& other) {
+    if (this->columns_ != other.columns_ || this->rows_ != other.rows_) {
+        throw std::invalid_argument(
+            "lana::operator+ error: matrices have incompatible dimensions");
+    }
+    for (std::size_t i = 0; i < this->data_.size(); i++) {
+        this->data_[i] += other.data_[i];
+    }
+    return *this;
+}
+
 // op
 template <typename T>
 matrix<T> matrix<T>::transpose() const {

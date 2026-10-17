@@ -29,6 +29,7 @@ class matrix {
     const T& operator()(const std::size_t r, const std::size_t c) const;
 
     matrix operator+(const matrix& other) const;
+    matrix& operator+=(const matrix& other);
 
     // op
     matrix transpose() const;
