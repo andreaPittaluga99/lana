@@ -170,47 +170,45 @@ TEST(IsSymmetric, Negative) {
     EXPECT_FALSE(m.is_symmetric());
 }
 
+TEST(Equality, Positive) {
+    lana::matrix<int> m = {{1, 1, 0}, {2, 5, 6}};
+    auto b = m;
+    EXPECT_TRUE(m == b);
+}
+
+TEST(Equality, Negative) {
+    lana::matrix<int> m = {{1, 1, 0}, {2, 5, 6}};
+    lana::matrix<int> n = {{1, 1, 0}, {2, 5, 6}, {1, 2, 3}};
+
+    EXPECT_FALSE(m == n);
+}
+
 TEST(MatrixAddition, SameSizeMatrices) {
     lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
     lana::matrix<int> b{{6, 5, 4}, {3, 2, 1}};
+    lana::matrix<int> expected{{7, 7, 7}, {7, 7, 7}};
 
-    auto sum = a + b;
+    auto result = a + b;
 
-    EXPECT_EQ(sum.rows(), 2);
-    EXPECT_EQ(sum.columns(), 3);
-    EXPECT_EQ(sum(0, 0), 7);
-    EXPECT_EQ(sum(0, 1), 7);
-    EXPECT_EQ(sum(0, 2), 7);
-    EXPECT_EQ(sum(1, 0), 7);
-    EXPECT_EQ(sum(1, 1), 7);
-    EXPECT_EQ(sum(1, 2), 7);
-
-    EXPECT_EQ(a(0, 0), 1);
-    EXPECT_EQ(b(0, 0), 6);
+    EXPECT_TRUE(result == expected);
+    EXPECT_TRUE((a == lana::matrix<int>{{1, 2, 3}, {4, 5, 6}}));
+    EXPECT_TRUE((b == lana::matrix<int>{{6, 5, 4}, {3, 2, 1}}));
 }
 
 TEST(MatrixAddition, SquareMatrices) {
     lana::matrix<int> a{{1, 2}, {3, 4}};
     lana::matrix<int> b{{5, 6}, {7, 8}};
+    lana::matrix<int> expected{{6, 8}, {10, 12}};
 
-    auto sum = a + b;
-
-    EXPECT_EQ(sum(0, 0), 6);
-    EXPECT_EQ(sum(0, 1), 8);
-    EXPECT_EQ(sum(1, 0), 10);
-    EXPECT_EQ(sum(1, 1), 12);
+    EXPECT_TRUE(a + b == expected);
 }
 
 TEST(MatrixAddition, ZeroMatrix) {
     lana::matrix<int> a{{1, 2}, {3, 4}};
     lana::matrix<int> zero{{0, 0}, {0, 0}};
+    lana::matrix<int> expected{{1, 2}, {3, 4}};
 
-    auto sum = a + zero;
-
-    EXPECT_EQ(sum(0, 0), 1);
-    EXPECT_EQ(sum(0, 1), 2);
-    EXPECT_EQ(sum(1, 0), 3);
-    EXPECT_EQ(sum(1, 1), 4);
+    EXPECT_TRUE(a + zero == expected);
 }
 
 TEST(MatrixAddition, DifferentSizes) {
@@ -223,15 +221,14 @@ TEST(MatrixAddition, DifferentSizes) {
 TEST(MatrixAdditionAssignment, SameSizeMatrices) {
     lana::matrix<int> a{{1, 2}, {3, 4}};
     lana::matrix<int> b{{5, 6}, {7, 8}};
+    lana::matrix<int> expected{{6, 8}, {10, 12}};
+    lana::matrix<int> expected_b{{5, 6}, {7, 8}};
 
     lana::matrix<int>& result = (a += b);
 
-    EXPECT_EQ(a(0, 0), 6);
-    EXPECT_EQ(a(0, 1), 8);
-    EXPECT_EQ(a(1, 0), 10);
-    EXPECT_EQ(a(1, 1), 12);
+    EXPECT_TRUE(a == expected);
+    EXPECT_TRUE(b == expected_b);
     EXPECT_EQ(&result, &a);
-    EXPECT_EQ(b(0, 0), 5);
 }
 
 TEST(MatrixAdditionAssignment, DifferentSizes) {
@@ -244,20 +241,13 @@ TEST(MatrixAdditionAssignment, DifferentSizes) {
 TEST(MatrixSubtraction, SameSizeMatrices) {
     lana::matrix<int> a{{7, 8, 9}, {6, 5, 4}};
     lana::matrix<int> b{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> expected{{6, 6, 6}, {2, 0, -2}};
 
-    auto difference = a - b;
+    auto result = a - b;
 
-    EXPECT_EQ(difference.rows(), 2);
-    EXPECT_EQ(difference.columns(), 3);
-    EXPECT_EQ(difference(0, 0), 6);
-    EXPECT_EQ(difference(0, 1), 6);
-    EXPECT_EQ(difference(0, 2), 6);
-    EXPECT_EQ(difference(1, 0), 2);
-    EXPECT_EQ(difference(1, 1), 0);
-    EXPECT_EQ(difference(1, 2), -2);
-
-    EXPECT_EQ(a(0, 0), 7);
-    EXPECT_EQ(b(0, 0), 1);
+    EXPECT_TRUE(result == expected);
+    EXPECT_TRUE((a == lana::matrix<int>{{7, 8, 9}, {6, 5, 4}}));
+    EXPECT_TRUE((b == lana::matrix<int>{{1, 2, 3}, {4, 5, 6}}));
 }
 
 TEST(MatrixSubtraction, DifferentSizes) {
@@ -270,15 +260,14 @@ TEST(MatrixSubtraction, DifferentSizes) {
 TEST(MatrixSubtractionAssignment, SameSizeMatrices) {
     lana::matrix<int> a{{7, 8}, {9, 10}};
     lana::matrix<int> b{{1, 2}, {3, 4}};
+    lana::matrix<int> expected{{6, 6}, {6, 6}};
+    lana::matrix<int> expected_b{{1, 2}, {3, 4}};
 
     lana::matrix<int>& result = (a -= b);
 
-    EXPECT_EQ(a(0, 0), 6);
-    EXPECT_EQ(a(0, 1), 6);
-    EXPECT_EQ(a(1, 0), 6);
-    EXPECT_EQ(a(1, 1), 6);
+    EXPECT_TRUE(a == expected);
+    EXPECT_TRUE(b == expected_b);
     EXPECT_EQ(&result, &a);
-    EXPECT_EQ(b(0, 0), 1);
 }
 
 TEST(MatrixSubtractionAssignment, DifferentSizes) {

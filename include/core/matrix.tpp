@@ -67,6 +67,20 @@ const T& matrix<T>::operator()(const std::size_t r, const std::size_t c) const {
 }
 
 template <typename T>
+bool matrix<T>::operator==(const matrix<T>& other) const {
+    if (this->rows_ != other.rows_ || this->columns_ != other.columns_) {
+        return false;
+    }
+
+    for (std::size_t i = 0; i < this->data_.size(); ++i) {
+        if (this->data_[i] != other.data_[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+template <typename T>
 matrix<T> matrix<T>::operator+(const matrix<T>& other) const {
     if (this->columns_ != other.columns_ || this->rows_ != other.rows_) {
         throw std::invalid_argument(
