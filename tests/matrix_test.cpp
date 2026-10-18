@@ -336,3 +336,53 @@ TEST(MatrixMultiplication, IncompatibleDimensions) {
 
     EXPECT_THROW((a * b), std::invalid_argument);
 }
+
+TEST(MatrixMultiplicationAssignment, CompatibleRectangularMatrices) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> b{{7, 8}, {9, 10}, {11, 12}};
+    lana::matrix<int> expected{{58, 64}, {139, 154}};
+
+    a *= b;
+
+    EXPECT_TRUE(a == expected);
+    EXPECT_EQ(a.rows(), 2);
+    EXPECT_EQ(a.columns(), 2);
+
+    // b should remain the same
+    lana::matrix<int> expected_b{{7, 8}, {9, 10}, {11, 12}};
+    EXPECT_TRUE(b == expected_b);
+}
+
+TEST(MatrixMultiplicationAssignment, SquareMatrices) {
+    lana::matrix<int> a{{1, 2}, {3, 4}};
+    lana::matrix<int> b{{5, 6}, {7, 8}};
+    lana::matrix<int> expected{{19, 22}, {43, 50}};
+
+    a *= b;
+    EXPECT_TRUE(a == expected);
+}
+
+TEST(MatrixMultiplicationAssignment, IdentityMatrix) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> identity = lana::matrix<int>::identity(3);
+    lana::matrix<int> expected = a;
+
+    a *= identity;
+
+    EXPECT_TRUE(a == expected);
+}
+
+TEST(MatrixMultiplicationAssignment, ZeroMatrix) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> zero = lana::matrix<int>::zeros(3, 2);
+    lana::matrix<int> expected = lana::matrix<int>::zeros(2, 2);
+    a *= zero;
+    EXPECT_TRUE(a == expected);
+}
+
+TEST(MatrixMultiplicationAssignment, IncompatibleDimensions) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> b{{1, 2}, {3, 4}};
+
+    EXPECT_THROW((a *= b), std::invalid_argument);
+}

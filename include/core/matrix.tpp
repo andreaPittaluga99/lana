@@ -156,6 +156,12 @@ matrix<T> matrix<T>::operator*(const matrix<T>& other) const {
     return ret;
 }
 
+template <typename T>
+matrix<T>& matrix<T>::operator*=(const matrix<T>& other) {
+    *this = *this * other;
+    return *this;
+}
+
 // op
 template <typename T>
 matrix<T> matrix<T>::transpose() const {
