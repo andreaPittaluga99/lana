@@ -183,6 +183,18 @@ TEST(Equality, Negative) {
     EXPECT_FALSE(m == n);
 }
 
+TEST(Inequality, Positive) {
+    lana::matrix<int> m = {{1, 1, 0}, {2, 5, 6}};
+    lana::matrix<int> n = {{1, 1, 0}, {2, 5, 6}, {32, 54, 4}};
+    EXPECT_TRUE(m != n);
+}
+
+TEST(Inequality, Negative) {
+    lana::matrix<int> m = {{1, 1, 0}, {2, 5, 6}};
+    auto n = m;
+    EXPECT_FALSE(m != n);
+}
+
 TEST(MatrixAddition, SameSizeMatrices) {
     lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
     lana::matrix<int> b{{6, 5, 4}, {3, 2, 1}};

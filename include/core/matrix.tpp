@@ -81,6 +81,11 @@ bool matrix<T>::operator==(const matrix<T>& other) const {
 }
 
 template <typename T>
+bool matrix<T>::operator!=(const matrix<T>& other) const {
+    return !(*this == other);
+}
+
+template <typename T>
 matrix<T> matrix<T>::operator+(const matrix<T>& other) const {
     if (this->columns_ != other.columns_ || this->rows_ != other.rows_) {
         throw std::invalid_argument(
