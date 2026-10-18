@@ -102,7 +102,7 @@ template <typename T>
 matrix<T>& matrix<T>::operator+=(const matrix<T>& other) {
     if (this->columns_ != other.columns_ || this->rows_ != other.rows_) {
         throw std::invalid_argument(
-            "lana::operator+ error: matrices have incompatible dimensions");
+            "lana::operator+= error: matrices have incompatible dimensions");
     }
     for (std::size_t i = 0; i < this->data_.size(); i++) {
         this->data_[i] += other.data_[i];
@@ -114,7 +114,7 @@ template <typename T>
 matrix<T> matrix<T>::operator-(const matrix<T>& other) const {
     if (this->columns_ != other.columns_ || this->rows_ != other.rows_) {
         throw std::invalid_argument(
-            "lana::operator+ error: matrices have incompatible dimensions");
+            "lana::operator- error: matrices have incompatible dimensions");
     }
     matrix<T> ret = *this;
     for (std::size_t i = 0; i < this->data_.size(); ++i) {
@@ -124,10 +124,10 @@ matrix<T> matrix<T>::operator-(const matrix<T>& other) const {
 }
 
 template <typename T>
-matrix<T>& matrix<T>::operator-=(const matrix& other) {
+matrix<T>& matrix<T>::operator-=(const matrix<T>& other) {
     if (this->columns_ != other.columns_ || this->rows_ != other.rows_) {
         throw std::invalid_argument(
-            "lana::operator+ error: matrices have incompatible dimensions");
+            "lana::operator-= error: matrices have incompatible dimensions");
     }
     for (std::size_t i = 0; i < this->data_.size(); i++) {
         this->data_[i] -= other.data_[i];
@@ -135,11 +135,32 @@ matrix<T>& matrix<T>::operator-=(const matrix& other) {
     return *this;
 }
 
+template <typename T>
+matrix<T> matrix<T>::operator*(const matrix<T>& other) const {
+    if (this->columns_ != other.rows_) {
+        throw std::invalid_argument(
+            "lana::operator* error: matrices have incompatible dimensions");
+    }
+
+    matrix<T> ret = matrix<T>::zeros(this->rows_, other.columns_);
+
+    // since matrix is row major, j iterates through consecutive elements of
+    // other and ret
+    for (std::size_t i = 0; i < this->rows_; ++i) {
+        for (std::size_t k = 0; k < this->columns_; ++k) {
+            for (std::size_t j = 0; j < other.columns_; ++j) {
+                ret(i, j) += (*this)(i, k) * other(k, j);
+            }
+        }
+    }
+    return ret;
+}
+
 // op
 template <typename T>
 matrix<T> matrix<T>::transpose() const {
     matrix<T> ret(this->columns_, this->rows_);
-    for (std::size_t r = 0; r < this->rows_; r++) {
+    for (std::size_t r = 0; r < this->rows_; ++r) {
         for (std::size_t c = 0; c < this->columns_; ++c) {
             ret(c, r) = (*this)(r, c);
         }

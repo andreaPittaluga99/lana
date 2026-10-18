@@ -288,3 +288,51 @@ TEST(MatrixSubtractionAssignment, DifferentSizes) {
 
     EXPECT_THROW((a -= b), std::invalid_argument);
 }
+
+TEST(MatrixMultiplication, CompatibleRectangularMatrices) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> b{{7, 8}, {9, 10}, {11, 12}};
+    lana::matrix<int> expected{{58, 64}, {139, 154}};
+
+    auto result = a * b;
+
+    EXPECT_TRUE(result == expected);
+    EXPECT_EQ(result.rows(), 2);
+    EXPECT_EQ(result.columns(), 2);
+
+    // operands should remain the same
+    lana::matrix<int> expected_a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> expected_b{{7, 8}, {9, 10}, {11, 12}};
+    EXPECT_TRUE(a == expected_a);
+    EXPECT_TRUE(b == expected_b);
+}
+
+TEST(MatrixMultiplication, SquareMatrices) {
+    lana::matrix<int> a{{1, 2}, {3, 4}};
+    lana::matrix<int> b{{5, 6}, {7, 8}};
+    lana::matrix<int> expected{{19, 22}, {43, 50}};
+
+    EXPECT_TRUE(a * b == expected);
+}
+
+TEST(MatrixMultiplication, IdentityMatrix) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> identity = lana::matrix<int>::identity(3);
+    lana::matrix<int> expected = a;
+
+    EXPECT_TRUE(a * identity == expected);
+}
+
+TEST(MatrixMultiplication, ZeroMatrix) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> zero = lana::matrix<int>::zeros(3, 2);
+    lana::matrix<int> expected = lana::matrix<int>::zeros(2, 2);
+    EXPECT_TRUE((a * zero) == expected);
+}
+
+TEST(MatrixMultiplication, IncompatibleDimensions) {
+    lana::matrix<int> a{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> b{{1, 2}, {3, 4}};
+
+    EXPECT_THROW((a * b), std::invalid_argument);
+}
