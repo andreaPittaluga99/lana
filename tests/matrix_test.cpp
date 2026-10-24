@@ -386,3 +386,41 @@ TEST(MatrixMultiplicationAssignment, IncompatibleDimensions) {
 
     EXPECT_THROW((a *= b), std::invalid_argument);
 }
+
+TEST(MatrixScalarMultiplication, IntMatrixTimesDouble) {
+    lana::matrix<int> m{{1, 2}, {3, 4}};
+    lana::matrix<double> expected{{0.5, 1.0}, {1.5, 2.0}};
+
+    auto result = m * 0.5;
+
+    EXPECT_TRUE(result == expected);
+    EXPECT_TRUE((m == lana::matrix<int>{{1, 2}, {3, 4}}));
+}
+
+TEST(MatrixScalarMultiplication, DoubleMatrixTimesInt) {
+    lana::matrix<double> m{{1.5, 2.5}, {3.5, 4.5}};
+    lana::matrix<double> expected{{3.0, 5.0}, {7.0, 9.0}};
+
+    auto result = m * 2;
+
+    EXPECT_TRUE(result == expected);
+}
+
+TEST(MatrixScalarMultiplication, IntMatrixTimesInt) {
+    lana::matrix<int> m{{1, 2}, {3, 4}};
+    lana::matrix<int> expected{{2, 4}, {6, 8}};
+    auto result = m * 2;
+
+    EXPECT_TRUE(result == expected);
+}
+
+TEST(MatrixScalarMultiplication, RectangularMatrix) {
+    lana::matrix<int> m{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<double> expected{{0.5, 1.0, 1.5}, {2.0, 2.5, 3.0}};
+
+    auto result = m * 0.5;
+
+    EXPECT_TRUE(result == expected);
+    EXPECT_EQ(result.rows(), 2);
+    EXPECT_EQ(result.columns(), 3);
+}

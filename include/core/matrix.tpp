@@ -162,6 +162,20 @@ matrix<T>& matrix<T>::operator*=(const matrix<T>& other) {
     return *this;
 }
 
+template <typename T>
+template <typename S>
+matrix<std::common_type_t<T, S>> matrix<T>::operator*(const S scalar) const {
+    using R = std::common_type_t<T, S>;
+    matrix<R> ret(rows_, columns_);
+    for (std::size_t i = 0; i < this->data_.size(); ++i) {
+        const std::size_t r = i / this->columns_;
+        const std::size_t c = i % this->columns_;
+        // cannot directly reference ret-data_ because it could be a different
+        // type from *this so we use () operator
+        ret(r, c) = this->data_[i] * scalar;
+    }
+    return ret;
+}
 // op
 template <typename T>
 matrix<T> matrix<T>::transpose() const {

@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <initializer_list>
 #include <stdexcept>
+#include <type_traits>
 #include <vector>
 
 namespace lana {
@@ -37,6 +38,9 @@ class matrix {
     matrix& operator-=(const matrix& other);
     matrix operator*(const matrix& other) const;
     matrix& operator*=(const matrix& other);
+
+    template <typename S>
+    matrix<std::common_type_t<T, S>> operator*(const S scalar) const;
 
     // op
     matrix transpose() const;
