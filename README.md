@@ -1,5 +1,5 @@
 # lana
-Lana is a linear algebra library I built to better understand the theory I'm studying in uni.
+Lana is a linear algebra library I'm building to better understand the theory I'm studying in uni.
 
 You can find the course syllabus [here](https://corsi.unige.it/off.f/2026/ins/93652).
 
