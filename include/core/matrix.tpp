@@ -49,6 +49,37 @@ matrix<T> matrix<T>::identity(const std::size_t n) {
     return ret;
 }
 
+// iterators
+template <typename T>
+typename std::vector<T>::iterator matrix<T>::begin() noexcept {
+    return data_.begin();
+}
+
+template <typename T>
+typename std::vector<T>::iterator matrix<T>::end() noexcept {
+    return data_.end();
+}
+
+template <typename T>
+typename std::vector<T>::const_iterator matrix<T>::begin() const noexcept {
+    return data_.begin();
+}
+
+template <typename T>
+typename std::vector<T>::const_iterator matrix<T>::end() const noexcept {
+    return data_.end();
+}
+
+template <typename T>
+typename std::vector<T>::const_iterator matrix<T>::cbegin() const noexcept {
+    return data_.cbegin();
+}
+
+template <typename T>
+typename std::vector<T>::const_iterator matrix<T>::cend() const noexcept {
+    return data_.cend();
+}
+
 // operator overloads
 template <typename T>
 T& matrix<T>::operator()(const std::size_t r, const std::size_t c) {

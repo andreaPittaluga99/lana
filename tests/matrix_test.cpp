@@ -425,3 +425,72 @@ TEST(MatrixScalarMultiplication, RectangularMatrix) {
     EXPECT_EQ(result.rows(), 2);
     EXPECT_EQ(result.columns(), 3);
 }
+
+TEST(MatrixIterators, BeginEnd) {
+    lana::matrix<int> m{{1, 2, 3}, {4, 5, 6}};
+    auto it = m.begin();
+    EXPECT_EQ(*it, 1);
+    ++it;
+    EXPECT_EQ(*it, 2);
+    ++it;
+    EXPECT_EQ(*it, 3);
+    ++it;
+    EXPECT_EQ(*it, 4);
+    EXPECT_NE(it, m.end());
+    it += 3;
+    EXPECT_EQ(it, m.end());
+}
+
+TEST(MatrixIterators, RangeBasedFor) {
+    lana::matrix<int> m{{1, 2, 3}, {4, 5, 6}};
+
+    int expected = 1;
+    for (const int& value : m) {
+        EXPECT_EQ(value, expected);
+        ++expected;
+    }
+    EXPECT_EQ(expected, 7);
+}
+
+TEST(MatrixIterators, MutableIterator) {
+    lana::matrix<int> m{{1, 2}, {3, 4}};
+
+    for (auto it = m.begin(); it != m.end(); ++it) {
+        *it *= 2;
+    }
+    EXPECT_EQ(m(0, 0), 2);
+    EXPECT_EQ(m(0, 1), 4);
+    EXPECT_EQ(m(1, 0), 6);
+    EXPECT_EQ(m(1, 1), 8);
+}
+
+TEST(MatrixIterators, ConstIterator) {
+    const lana::matrix<int> m{{1, 2}, {3, 4}};
+
+    auto it = m.begin();
+
+    EXPECT_EQ(*it, 1);
+    ++it;
+    EXPECT_EQ(*it, 2);
+    ++it;
+    EXPECT_EQ(*it, 3);
+    ++it;
+    EXPECT_EQ(*it, 4);
+    ++it;
+    EXPECT_EQ(it, m.end());
+}
+
+TEST(MatrixIterators, CbeginCend) {
+    lana::matrix<int> m{{1, 2}, {3, 4}};
+
+    auto it = m.cbegin();
+    EXPECT_EQ(*it, 1);
+    ++it;
+    EXPECT_EQ(*it, 2);
+    ++it;
+    EXPECT_EQ(*it, 3);
+    ++it;
+    EXPECT_EQ(*it, 4);
+    ++it;
+    EXPECT_EQ(it, m.cend());
+}

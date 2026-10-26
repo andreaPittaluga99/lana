@@ -25,6 +25,16 @@ class matrix {
     std::size_t rows() const noexcept { return rows_; }
     std::size_t columns() const noexcept { return columns_; }
 
+    // iterators
+    std::vector<T>::iterator begin() noexcept;
+    std::vector<T>::iterator end() noexcept;
+
+    std::vector<T>::const_iterator begin() const noexcept;
+    std::vector<T>::const_iterator end() const noexcept;
+
+    std::vector<T>::const_iterator cbegin() const noexcept;
+    std::vector<T>::const_iterator cend() const noexcept;
+
     // operator overload
     T& operator()(const std::size_t r, const std::size_t c);
     const T& operator()(const std::size_t r, const std::size_t c) const;
