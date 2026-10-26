@@ -409,6 +409,7 @@ TEST(MatrixScalarMultiplication, DoubleMatrixTimesInt) {
 TEST(MatrixScalarMultiplication, IntMatrixTimesInt) {
     lana::matrix<int> m{{1, 2}, {3, 4}};
     lana::matrix<int> expected{{2, 4}, {6, 8}};
+
     auto result = m * 2;
 
     EXPECT_TRUE(result == expected);
