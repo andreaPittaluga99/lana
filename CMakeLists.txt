@@ -13,7 +13,7 @@ FetchContent_Declare(
     URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
 )
 
-# gorce GoogleTest to use the shared MSVC runtime to avoid runtime library mismatch
+# force GoogleTest to use the shared MSVC runtime to avoid runtime library mismatch
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(googletest)
