@@ -542,3 +542,16 @@ TEST(MatrixSize, DifferentDimensions) {
     EXPECT_EQ(column.size(), 3);
     EXPECT_EQ(empty.size(), 0);
 }
+
+TEST(MatrixShape, DifferentDimensions) {
+    lana::matrix<int> square{{1, 2}, {3, 4}};
+    lana::matrix<int> rectangular{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> row{{1, 2, 3}};
+    lana::matrix<int> column{{1}, {2}, {3}};
+    lana::matrix<int> empty(0, 0);
+    EXPECT_EQ(square.shape(), (std::pair<std::size_t, std::size_t>{2, 2}));
+    EXPECT_EQ(rectangular.shape(), (std::pair<std::size_t, std::size_t>{2, 3}));
+    EXPECT_EQ(row.shape(), (std::pair<std::size_t, std::size_t>{1, 3}));
+    EXPECT_EQ(column.shape(), (std::pair<std::size_t, std::size_t>{3, 1}));
+    EXPECT_EQ(empty.shape(), (std::pair<std::size_t, std::size_t>{0, 0}));
+}
