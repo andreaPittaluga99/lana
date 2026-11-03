@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include <utility>
+
 TEST(MatrixConstructors, InitList) {
     lana::matrix<int> m({{1, 2, 3}, {1, 2, 3}, {1, 2, 3}});
 
@@ -493,4 +495,36 @@ TEST(MatrixIterators, CbeginCend) {
     EXPECT_EQ(*it, 4);
     ++it;
     EXPECT_EQ(it, m.cend());
+}
+
+TEST(MatrixEmpty, DifferentDimensions) {
+    lana::matrix<int> square{{1, 2}, {3, 4}};
+    lana::matrix<int> rectangular{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> empty(0, 0);
+    lana::matrix<int> zero_rows(0, 3);
+    lana::matrix<int> zero_columns(3, 0);
+
+    EXPECT_FALSE(square.empty());
+    EXPECT_FALSE(rectangular.empty());
+    EXPECT_TRUE(empty.empty());
+    EXPECT_TRUE(zero_rows.empty());
+    EXPECT_TRUE(zero_columns.empty());
+}
+
+TEST(MatrixIsSquare, DifferentDimensions) {
+    lana::matrix<int> square{{1, 2}, {3, 4}};
+    lana::matrix<int> rectangular{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> row{{1, 2, 3}};
+    lana::matrix<int> column{{1}, {2}, {3}};
+    lana::matrix<int> single{{42}};
+    lana::matrix<int> empty(0, 0);
+    lana::matrix<int> zero_rows(0, 3);
+
+    EXPECT_TRUE(square.is_square());
+    EXPECT_FALSE(rectangular.is_square());
+    EXPECT_FALSE(row.is_square());
+    EXPECT_FALSE(column.is_square());
+    EXPECT_TRUE(single.is_square());
+    EXPECT_TRUE(empty.is_square());
+    EXPECT_FALSE(zero_rows.is_square());
 }
