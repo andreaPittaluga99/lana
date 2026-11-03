@@ -62,8 +62,8 @@ class matrix {
     bool is_strictly_lower_triangular() const noexcept;
     bool is_diagonal() const noexcept;
     bool is_symmetric() const noexcept;
-    bool empty() const noexcept { return data_.empty() };
-    bool is_square() const noexcept { return rows_ == columns_ };
+    bool empty() const noexcept { return data_.empty(); }
+    bool is_square() const noexcept { return rows_ == columns_; }
 
    private:
     std::size_t rows_;
