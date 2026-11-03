@@ -24,6 +24,7 @@ class matrix {
     // getters
     std::size_t rows() const noexcept { return rows_; }
     std::size_t columns() const noexcept { return columns_; }
+    std::size_t size() const noexcept { return data_.size(); }
 
     // iterators
     std::vector<T>::iterator begin() noexcept;

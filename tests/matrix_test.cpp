@@ -528,3 +528,17 @@ TEST(MatrixIsSquare, DifferentDimensions) {
     EXPECT_TRUE(empty.is_square());
     EXPECT_FALSE(zero_rows.is_square());
 }
+
+TEST(MatrixSize, DifferentDimensions) {
+    lana::matrix<int> square{{1, 2}, {3, 4}};
+    lana::matrix<int> rectangular{{1, 2, 3}, {4, 5, 6}};
+    lana::matrix<int> row{{1, 2, 3}};
+    lana::matrix<int> column{{1}, {2}, {3}};
+    lana::matrix<int> empty(0, 3);
+
+    EXPECT_EQ(square.size(), 4);
+    EXPECT_EQ(rectangular.size(), 6);
+    EXPECT_EQ(row.size(), 3);
+    EXPECT_EQ(column.size(), 3);
+    EXPECT_EQ(empty.size(), 0);
+}
